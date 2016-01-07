@@ -19,7 +19,7 @@ PS書出し用のバーチャルルプリンタを各言語毎に追加します
 			
 *)
 ---1か2を設定
-set numSpoolPerm to 2 as number
+set numSpoolPerm to 1 as number
 -------設定ここまで
 
 
@@ -240,12 +240,13 @@ if numSpoolPerm is 2 then
 		do shell script theCommand with administrator privileges
 		delay 0.5
 	end try
-	----	ログインユーザーをPrint Adminグループに追加する
+	----	ログインユーザーをPrint Operatorグループに追加する
 	try
 		set theCommand to ("sudo dseditgroup -o edit -a " & theUserName & " -t user '_lpoperator'") as text
 		do shell script theCommand with administrator privileges
 		delay 0.5
 	end try
+	---ユーザーディレクトリ直下にシンボリックリンクを作成
 	try
 		set theCommand to ("ln -s '/private/var/spool/cups' '/Users/" & theUserName & "/CUPS'") as text
 		do shell script theCommand with administrator privileges
